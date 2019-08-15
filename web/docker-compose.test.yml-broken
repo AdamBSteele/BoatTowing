@@ -1,0 +1,13 @@
+test_postgres:
+  expose:
+    - '5432'
+  image: 'gobulls1026/postgres:latest'
+  restart: always
+
+sut:
+  build: .
+  command: /usr/src/app/terraintracker/scripts/docker_cloud_test.sh
+  environment:
+    - SOURCE_BRANCH
+  links:
+    - test_postgres

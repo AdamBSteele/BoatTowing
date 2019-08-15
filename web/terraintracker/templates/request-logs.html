@@ -1,0 +1,29 @@
+<h2>Last 100 Requests</h2>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Time</th>
+        <th>Method</th>
+        <th>URL</th>
+        <th>Request Data</th>
+        <th>User</th>
+        <th>Response Code</th>
+        <th>Response Body</th>
+      </tr>
+    </thead>
+    <tbody>
+{% for request in requests %}
+    <tr style="font-family: monospace;">
+        <td>{{ request.timestamp }}</td>
+        <td>{{ request.request_method }}</td>
+        <td>{{ request.request_url }}</td>
+        <td>{{ request.pretty_request_body }}</td>
+        <td><a href="/admin_panel/user_detail/{{ request.request_user }}">{{ request.request_user }}</a></td>
+        <td>{{ request.response_code }}</td>
+        <td>{{ request.pretty_response_body }}</td>
+
+
+    </tr>
+{% endfor %}
+    </tbody>
+</table>

@@ -1,0 +1,173 @@
+      <div class="col-6 operator-trb-card">
+        <div class="card rounded border border-secondary" style="border: 1px solid;">
+          <div class="card-body">
+            <h5 class="card-title" style="text-align: center;">
+              Distressed Boater - {{res['requestor']['name']}}
+            </h5>
+            <table class="table">
+              <tbody>
+                <tr>
+                  <th scope="row">Time Requested:</th>
+                  <td>{{res['trb']['time_sent']}}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Status:</th>
+                  <td>{{res['trb']['status']}}</td>
+                </tr>
+
+                <tr>
+                  <th scope="row">Phone:</th>
+                  <td>{{res['requestor']['phone']}}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Location:</th>
+                  <td><a href="{{res['requestor']['google_maps_string']}}">
+                        ({{res['requestor']['lat']}}, {{res['requestor']['lon']}})
+                      </a>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Nearby Captains:</th>
+                  <td>
+                    {% for captain in res['trb']['captains'] %}
+                      {{captain['name']}}: {{captain['phone']}}
+                      {% if loop.index > 0 %}<br>{% endif %}
+                    {% endfor %}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="row"> 
+              <div class="col col-md-12"> 
+                <p>Instruction: Call nearby captains listed above. Use the scripts provided below for calling captains, and choose script pending captain response.</p>
+              </div>
+            </div>
+            <div class="row"> 
+              <div class="col col-md-12" style="margin-bottom:5px;"> 
+                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#{{res['trb']['id']}}CallingCaptainsModal">Calling Captains Instructions/Script</button>
+              </div> 
+              <div class="col col-md-12" style="margin-bottom:5px; margin-left:10px;"> 
+                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#{{res['trb']['id']}}CaptainSaidYesModal">  Captain Said "Yes" Instructions/Script
+                </button>
+              </div>
+              <div class="col col-md-12" style="margin-bottom:5px; margin-left:10px"> 
+                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#{{res['trb']['id']}}NoCaptainsRepliedModal">  Captain Did Not Answer Instructions/Script
+                </button>
+              </div> 
+              <div class="col col-md-12" style="margin-bottom:5px;"> 
+                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#{{res['trb']['id']}}CaptainsRejectedModal">All Captains Are Unwilling To Help Instructions/Script</button>
+              </div> 
+            </div>  
+          </div>
+        </div>
+      </div>
+
+    <!-- Calling Capatins Modal -->
+    <div class="modal fade" id="{{res['trb']['id']}}CallingCaptainsModal" tabindex="-1" role="dialog" aria-labelledby="{{res['trb']['id']}}CallingCaptainsModalTitle" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="{{res['trb']['id']}}CallingCaptainsModalTitle">Calling a captain script</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Instruction: Please call each of the following captains. After first call attempt, wait one minute and make second call attempt to each captain. After second call attempt, if no response move forward to "captain did not answer" <br>
+                {% for captain in res['trb']['captains'] %}
+                      {{captain['name']}}: {{captain['phone']}}
+                      {% if loop.index > 0 %}<br>{% endif %}
+                    {% endfor %}</p>
+            <div class="card">
+              <div class="card-header">
+                Operator Script (to captains)
+              </div>        
+              <div class="card-body">     
+                <p class="card-text">
+                  Hey it's {your name} from Drift,<br>
+                  We have a boater in distress in your area.  You should have received a text message requesting assistance.  Are you able to help this boater?  Their location is:
+                  <br>lat: {{res['requestor']['lat']}}
+                  <br>lon: {{res['requestor']['lon']}}) 
+                </p> 
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Captains rejected Modal -->
+    <div class="modal fade" id="{{res['trb']['id']}}CaptainsRejectedModal" tabindex="-1" role="dialog" aria-labelledby="{{res['trb']['id']}}CaptainsRejectedModalTitle" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="{{res['trb']['id']}}CaptainsRejectedModalTitle">All Captains Rejected</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Instruction: Please return to the original caller and follow the script below to let the boater know we will be unable to help.</p>
+            <div class="card">
+              <div class="card-header">
+                Operator Script (to distressed boater)
+              </div>        
+              <div class="card-body">     
+                <p class="card-text">
+                  Hey it's {your name} from Drift,<br>
+                  If you are in immediate danger, please hang up and call the US Coast Guard at 1 (757) 398-6390.
+                  Our captains are unavailable to help you at this time.  Please reach out on channel 16 to receive assistance
+                  from another service.  Thank you for your time!
+                </p> 
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Captain said yes modal -->
+    <div class="modal fade" id="{{res['trb']['id']}}CaptainSaidYesModal" tabindex="-1" role="dialog" aria-labelledby="{{res['trb']['id']}}CaptainSaidYesModalTitle" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="{{res['trb']['id']}}CaptainSaidYesModalTitle">Captain Said "Yes"</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Instruction: Ask captain to call the boater at {{res['requestor']['phone']}} to complete the tow. Close Drift website and return to switchboard to answer "yes call was relayed to captain".</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- No captains replied -->
+    <div class="modal fade" id="{{res['trb']['id']}}NoCaptainsRepliedModal" tabindex="-1" role="dialog" aria-labelledby="{{res['trb']['id']}}NoCaptainsRepliedModalTitle" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="{{res['trb']['id']}}NoCaptainsRepliedModalTitle">No Captains Replied</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p> Instruction: Please return to caller. Close out of Drift website. Return to switchboard and complete "call not relayed to captain" section.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>

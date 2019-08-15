@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Drift</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script
+  src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+  integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
+  crossorigin="anonymous"></script> 
+  <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/static/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="/static/css/tow_request_form.css">
+  <link rel="stylesheet" href="/static/css/mdl-phone-textfield.min.css">
+  <link rel="stylesheet" href="/static/css/dialog-polyfill.css">
+  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-orange.min.css" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+  <script defer src="https://code.getmdl.io/1.1.1/material.min.js"></script>
+  <script defer src="/static/js/mdl-phone-textfield.min.js"></script>
+  <script defer src="/static/js/dialog-polyfill.js"></script>
+  <style></style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row header-row">
+      <div class="col-xs-1 visible-xs"></div>
+      <div class="col-xs-2">
+        <img src="/static/images/just_the_d.png" id="drift-d">
+      </div>
+      <div class="col-xs-8">
+        <img src="/static/images/simple_prompt_reliable.png" id="spr-img">
+      </div>
+      <div class="col-xs-1 visible-xs"></div>
+    </div>
+    <div class="row top-row">
+      <div class="col-xs-1 visible-xs"></div>
+      <div class="col-xs-10">
+        <p class="form-title">Boater Distress Form</p>
+      </div>
+    </div>
+    <div class="white-alpha-background">
+      <form id="tow-request-form" action="#">
+        <div class="service-required-wrapper">
+          <div class="row">
+            <div class="col-xs-1 visible-xs"></div>
+            <div class="col-xs-10"">
+              <h5 class="form-legend service-required-legend">Service Required</h5>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-1 visible-xs"></div>
+            <div class="col-xs-10">
+              <div class="mdl-textfield mdl-js-textfield service-select-textfield">
+                <select class="mdl-textfield__input activeInput" id="service-input" name="service-input" data-name="service_type">
+                  <option value="tow">Tow (ungrounded)</option>
+                  <option value="tow_grounded">Tow (grounded)</option>
+                  <option value="fuel">Fuel Refill</option>
+                  <option value="battery">Battery Jump</option>
+                  <option value="entanglement">Entanglement</option>
+                </select>
+                <label class="mdl-textfield__label" for="service-input"></label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-1 visible-xs"></div>
+          <div class="col-xs-10"">
+            <h5 class="form-legend location-info-legend">Location</h5>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-1 visible-xs"></div>
+          <div class="col-xs-10">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="latitude-textfield">
+              <input class="mdl-textfield__input activeInput locationInput" type="number" id="latitude-input" data-name="lat">
+              <label class="mdl-textfield__label" for="latitude-input">Latitude</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-1 visible-xs"></div>
+          <div class="col-xs-10">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="longitude-textfield">
+              <input class="mdl-textfield__input activeInput locationInput" type="number" id="longitude-input" data-name="lon">
+              <label class="mdl-textfield__label" for="longitude-input">Longitude</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-1 visible-xs"></div>
+          <div class="col-xs-10"">
+            <h5 class="form-legend contact-info-legend">Contact Info</h5>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-1 visible-xs"></div>
+          <div class="col-xs-10">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input class="mdl-textfield__input activeInput" type="text" id="name-input" name="name" data-name="name">
+              <label class="mdl-textfield__label" for="name-input">Name</label>
+            </div>
+          </div>
+          <div class="col-xs-1 visible-xs"></div>
+        </div>
+        <div class="row">
+          <div class="col-xs-1 visible-xs"></div>
+          <div class="col-xs-10">
+            <div class="mdl-phone-textfield mdl-js-phone-textfield mdl-phone-textfield--floating-label">
+              <input class="mdl-phone-textfield__input activeInput" type="tel" id="tel-national" name="tel-national" data-name="phone">
+              <label class="mdl-phone-textfield__label" id="phone-textfield-label" for="tel-national">Phone Number</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-1 visible-xs"></div>
+          <div class="col-xs-10"">
+            <h5 class="form-legend boat-info-legend">Boat Information</h5>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-1 visible-xs"></div>
+          <div class="col-xs-10"">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input class="mdl-textfield__input activeInput" type="text" id="boat-model-input" data-name="boat_make">
+              <label class="mdl-textfield__label" for="boat-model-input">Model / Brand</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-1 visible-xs"></div>
+          <div class="col-xs-10">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select">
+              <label class="mdl-textfield__label" for="boat-type-input">Boat Type</label>
+              <select class="mdl-textfield__input activeInput" id="boat-type-input" name="boat-type-input" data-name="boat_type">
+                <option value="center console">Center Console</option>
+                <option value="dual console">Dual Console</option>
+                <option value="cuddy cabin">Cuddy Cabin</option>
+                <option value="pontoon">Pontoon</option>
+                <option value="sailboat">Sailboat</option>
+                <option value="aluminum boat">Aluminum Boat</option>
+                <option value="jet ski">Jetski</option>
+                <option value="jet boat">Jet Boat</option>
+                <option value="catamaran">Catamaran</option>
+                <option value="skiff">Skiff</option>
+                <option value="deck boat">Deck boat</option>
+                <option value="bow rider">Bow rider</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-1 visible-xs"></div>
+          <div class="col-xs-10">
+           <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select">
+            <label class="mdl-textfield__label" for="boat-length-input">Boat Length</label>
+            <select class="mdl-textfield__input activeInput" id="boat-length-input" name="boat-length-input" data-name="boat_length">
+              <option value="10'">10'</option>
+              <option value="11'">11'</option>
+              <option value="12'">12'</option>
+              <option value="13'">13'</option>
+              <option value="14'">14'</option>
+              <option value="15'">15'</option>
+              <option value="16'">16'</option>
+              <option value="17'">17'</option>
+              <option value="18'">18'</option>
+              <option value="19'">19'</option>
+              <option value="20'">20'</option>
+              <option value="21'">21'</option>
+              <option value="22'">22'</option>
+              <option value="23'">23'</option>
+              <option value="24'">24'</option>
+              <option value="25'">25'</option>
+              <option value="26'">26'</option>
+              <option value="27'">27'</option>
+              <option value="28'">28'</option>
+              <option value="29'">29'</option>
+              <option value="30'+">30'+</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-1 visible-xs no-gutters"></div>
+        <div class="col-xs-2 no-gutters">
+
+          <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="accept-terms-switch">
+            <input type="checkbox" id="accept-terms-switch" class="mdl-switch__input activeInput" data-name="accepted_tnc">
+            <span class="mdl-switch__label"></span>
+          </label>
+        </div> 
+        <div class="col-xs-8 no-gutters">
+          <p id="terms-blurb">I accept the <a id="terms-and-conditions" href="https://www.driftboat.io/terms-and-conditions" target="_blank">Drift Terms & Conditions</a>
+          </p>
+        </div>
+      </div> 
+      <div class="row last-row">
+        <div class="col-xs-3 visible-xs"></div>
+        <div class="col-xs-6" style="text-align: center;">
+          <!-- Raised button with ripple -->
+          <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--primary mdl-button--disabled" id="submit-btn">
+            Request Drift
+          </button>
+        </div>
+        <div class="col-xs-3">
+          <!-- <i class="material-icons md-light">face</i> -->
+          <a href="https://www.driftboat.io/" target="_blank">
+            <i id="fa-icon-question" class="fa fa-question-circle-o" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+    </form>
+    <dialog>
+      <div class="mdl-dialog__content" id="dialog-content-container">
+        <h4 class="mdl-dialog__title" id="dialog-title"></h4>
+        <p id="dialog-box-content">
+          Allowing us to collect data will let us get you the information you want faster.
+        </p>
+      </div>
+      <div class="mdl-dialog__actions">
+        <button type="button" class="mdl-button close">Close</button>
+      </div>
+    </dialog>
+  </div>  
+</div>
+
+<script>
+  var dialog = document.querySelector('dialog');
+
+  var latInput = document.getElementById("latitude-input");
+  var lonInput = document.getElementById("longitude-input");
+
+  function getLocation() {
+    console.log("getLocation")
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showPosition, showError);
+    } else { 
+      console.log("Geolocation is not supported by this browser.");
+    }
+  }
+
+  function showPosition(position) {
+    console.log("showPosition")
+    latInput.value = position.coords.latitude;
+    var latTextField = document.getElementById("latitude-textfield");
+    latTextField.classList.add("is-dirty");
+    latTextField.classList.remove("is-invalid");
+
+    lonInput.value =  position.coords.longitude;
+    var lonTextField = document.getElementById("longitude-textfield");
+    lonTextField.classList.add("is-dirty");
+    lonTextField.classList.remove("is-invalid");
+
+    // checkIfTowersInArea();
+  }
+
+  function showError(error) {
+    console.log("showError")
+    switch(error.code) {
+      case error.PERMISSION_DENIED:
+      console.log("User denied the request for Geolocation.")
+      break;
+      case error.POSITION_UNAVAILABLE:
+      console.log("Location information is unavailable.")
+      break;
+      case error.TIMEOUT:
+      console.log("The request to get user location timed out.")
+      break;
+      case error.UNKNOWN_ERROR:
+      console.log("An unknown error occurred.")
+      break;
+    }
+  }
+
+// Prevent enter key from submitting form
+$(document).ready(function() {
+  getLocation();
+  $(window).keydown(function(event){
+    if(event.keyCode == 13) {
+      event.preventDefault();
+      submitBtnPress();
+      return false;
+    }
+  });
+});
+
+window.onload = function(){
+  console.log("onload");
+  getLocation();
+  fillInFieldsFromURLArgs();
+  dialog.querySelector('.close').addEventListener('click', function() {
+    dialog.close();
+  });
+  if (! dialog.showModal) {
+    dialogPolyfill.registerDialog(dialog);
+  }
+
+};
+
+function fillInFieldsFromURLArgs() {
+  var url_string = window.location.href
+  var url = new URL(url_string);
+  var phone_number = url.searchParams.get("phone_number");
+  if (phone_number) {
+    var phoneField = document.getElementById("tel-national");
+    phoneField.value = phone_number;
+  }
+}
+
+function isFormEmpty() {
+  var isEmpty = false;
+  $( ".activeInput" ).each(function( index ) {
+    if( !this.value ){
+      $(this).prop('required', true);
+        // $(this).parent().addClass('is-invalid');
+        console.log("Empty field", this);
+        this.focus();
+        isEmpty = true;
+        return false;
+      }
+    });
+  return isEmpty;
+};
+
+function isFormValid() {
+  if (isFormEmpty()) {
+    return false;
+  }
+
+  var foundInvalidInput = false;
+  $( ".activeInput" ).each(function( index ) {
+    if ($(this).parent().hasClass("is-invalid")) {
+      console.log("Invalid input:" + $(this).attr('id'));
+      foundInvalidInput = true;
+      return false;
+    }
+  });
+  if (foundInvalidInput) {
+    return false;
+  }
+
+  if (!termsAreAccepted()) {
+    console.log("Terms not accepted")
+    alert('Please accept the terms and conditions.');
+    return false;
+  };
+  console.log("Form looks good.")
+  return true;
+}
+
+function termsAreAccepted(){
+  var accepted = document.getElementById("accept-terms-switch").parentElement.MaterialSwitch.inputElement_.checked;
+  console.log(accepted);
+  return accepted;
+  // return $("#accept-terms-switch").parent().hasClass("is-checked");
+}
+
+
+$("#tow-request-form").submit(function(event){
+  event.preventDefault();
+  submitBtnPress();
+  return false;
+})
+$("#submit-btn").click(function(event){
+  event.preventDefault();
+  submitBtnPress();
+  return false;
+});
+
+$("#accept-terms-switch").click(function(e){
+  if (termsAreAccepted()) {
+    $("#submit-btn").removeClass("mdl-button--disabled");
+  } else {
+    $("#submit-btn").addClass("mdl-button--disabled");
+  }
+});
+
+function submitBtnPress(event){
+  if (!isFormValid()) {
+    console.log("Form invalid");
+  }
+  else {
+    postData = {}
+    $('.activeInput').map(function() {
+      postData[$(this).attr('data-name')] = $(this).val();
+    });
+    console.log(postData);
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/mweb_tow_request');
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.onload = function() {
+      console.log(xhr.status);
+      if (xhr.status === 200) {
+        response = JSON.parse(xhr.responseText);
+        if (response['status'] === 'no_captains_in_area') {
+          showNoCaptainsModal();
+        } else {
+          showDriftRequestedModal();
+        }
+      }
+    };
+    xhr.send(JSON.stringify(postData));
+  }  
+  return false;
+};
+
+function showNoCaptainsModal() {
+  $('#dialog-box-content').text("Drift is not yet available in your area but we are rapidly expanding! We hope to be able to serve you the next time you need help.");
+  $("dialog").css('width', $("#tow-request-form").width());
+  $("#dialog-title").text("We're not there yet!");
+  $("#dialog-title").css("background-color", "#a54145bd")
+  dialog.showModal();
+};
+
+function showDriftRequestedModal() {
+  $('#dialog-box-content').text("Thanks for entering your information. Drift is contacting local US Coast Guard licensed captains to find help. A Drift operator will call you soon!");
+  $("dialog").css('width', $("#tow-request-form").width())
+  $("#dialog-title").text("Drift requested!")
+  $("#dialog-title").css("background-color", "#0182e5f7")
+  dialog.showModal();
+};
+
+$(".mdl-textfield__input,.mdl-phone-textfield").blur(function (){
+  if( !this.value ){
+    $(this).prop('required', true);
+    $(this).parent().addClass('is-invalid');
+  }
+});
+
+function isNumeric(value) {
+  return !isNaN(value - parseFloat(value));
+};
+
+$(".locationInput").blur(function(){
+  if (isNumeric($(this).val())) {
+   $(this).parent().removeClass('is-invalid');
+ }
+ checkIfTowersInArea();
+});
+
+function checkIfTowersInArea(){
+  var lat = $("#latitude-input").val()
+  var lon = $("#longitude-input").val()
+  if (lat && lon && isNumeric(lat) && isNumeric(lon)) {
+    console.log("Pre-checking for local towers")
+  }
+  function reqListener () {
+    console.log(oReq.status);
+    console.log(oReq.responseText)
+    console.log(JSON.parse(oReq.responseText))
+    if (oReq.status === 200) {
+      response = JSON.parse(oReq.responseText);
+      if (response['num_found'] === '0') {
+        showNoCaptainsModal();
+      }
+    }
+  }
+  var oReq = new XMLHttpRequest();
+  oReq.addEventListener("load", reqListener);
+  var availability_url = "/mweb_tow_request?lat="+lat+"&lon="+lon
+  oReq.open("GET", availability_url);
+  oReq.send();
+};
+
+</script>
+
+</body>

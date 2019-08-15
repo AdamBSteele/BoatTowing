@@ -1,0 +1,29 @@
+version: '2'
+
+services:
+  postgres:
+    build: ./postgres
+    volumes:
+      - pg-data:/var/lib/postgres
+    ports:
+      - "5432:5432"
+
+  web:
+    restart: always
+    build:
+      context: ./web
+    expose:
+      - "8000"
+    ports:
+      - "5000:5000"
+    env_file: .env-test
+    depends_on:
+      - postgres
+    volumes:
+      - ./web:/usr/src/app
+    command:
+      python run_api.py
+
+volumes:
+  pg-data:
+    driver: local

@@ -1,0 +1,21 @@
+
+<div class="container">
+  <h2>Tow Request Batches</h2>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Requestor</th>
+        <th>Time Created</th>
+        <th>Status</th>
+        <th>Number of requests</th>
+        <th>ID</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for trb in tow_request_batches %}
+        {% include "trb-values-row.html" %}
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+

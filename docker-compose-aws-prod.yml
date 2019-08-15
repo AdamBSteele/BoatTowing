@@ -1,0 +1,41 @@
+version: '3'
+
+services:
+  postgres:
+    build: ./postgres
+    image: gobulls1026/postgres:latest
+    restart: always
+    volumes:
+      - /data:/var/lib/postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - uatnet
+
+
+  web:
+    restart: always
+    build: ./web
+    image: gobulls1026/web:latest
+    expose:
+      - "8000"
+    command: gunicorn -w 2 -b :8000 gunicorn_entry:app
+    env_file: .env-prod
+    depends_on:
+      - postgres
+    networks:
+      - uatnet
+
+  nginx:
+    restart: always
+    build: ./nginx
+    image: gobulls1026/nginx:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - uatnet
+
+networks:
+  uatnet:
+    external: true

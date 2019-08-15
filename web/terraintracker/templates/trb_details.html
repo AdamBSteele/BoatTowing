@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Drift Admin Panel</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% include "js_css_imports.html" %}
+</head>
+<body>
+{% include "site-header.html" %}
+<div class="container">
+  <h2>Tow Request Batch {{trb.id}}</h2>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Requestor</th>
+        <th>Time</th>
+        <th>Status</th>
+        <th>Number of requests</th>
+        <th>ID</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% include "trb-values-row.html" %}
+    </tbody>
+  </table>
+</div>
+
+<div class="container">
+  <h2>Tow Requests</h2>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Time Sent</th>
+        <th>Requestor</th>
+        <th>Requestor Location</th>
+        <th>Requestee</th>
+        <th>Requestee Location</th>
+        <th>Status</th>
+        <th>Tow Event ID (if Tow happened)</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for tr in tow_requests %}
+      <tr>
+        <td>{{tr.time_sent}}</td>
+        <td>
+          {% if tr.requestor_name is not none %}
+            {{tr.requestor_name}}
+          {% else %}
+            {{tr.requestor_id}}
+          {% endif %}
+        </td>
+        <td>{{tr.requestor_location}}</td>
+        <td>
+          {% if tr.requestee_name is not none %}
+            {{tr.requestee_name}}
+          {% else %}
+            {{tr.requestor_id}}
+          {% endif %}
+        </td>
+        <td>{{tr.requestee_location}}</td>
+        <td>{{tr.status_string}}</td>
+        <td>{{tr.tow_event_id}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>
+

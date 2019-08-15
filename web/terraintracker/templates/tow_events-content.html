@@ -1,0 +1,33 @@
+<div class="container">
+  <h2>Tow Events</h2>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>id</th>
+        <th>status</th>
+        <th>accepted_time</th>
+        <th>completed_time</th>
+        <th>cancelled_time</th>
+        <th>requestor_id</th>
+        <th>requestee_id</th>
+        <th>tow_request_batch_id</th>
+        <th>amount_paid</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for tow_event in tow_events %}
+      <tr>
+        <td>{{tow_event.id}}</td>
+        <td>{{tow_event.status_string}}
+        <td>{{tow_event.accepted_time}}</td>
+        <td>{{tow_event.completed_time}}</td>
+        <td>{{tow_event.cancelled_time}}</td>
+        <td><a href="/admin_panel/user_detail/{{tow_event.requestor_id}}">{{tow_event.requestor_id}}</a></td>
+        <td><a href="/admin_panel/user_detail/{{tow_event.requestee_id}}">{{tow_event.requestee_id}}</a></td>
+        <td>{{tow_event.tow_request_batch_id}}</td>
+        <td>{{tow_event.amount_paid}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>

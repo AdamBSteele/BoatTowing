@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Distressed Boaters</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+  {% include "operator-site-header.html" %}
+
+  <div class="container">
+    <div class="row" style="margin-bottom: 10px; text-align: center">
+      <div class="col-6">
+        <h4> Distressed Boater Panel</h4>
+      </div>
+      <div class="col-6">
+        <h4 id="time"></h4>
+      </div>
+    </div>  
+    <div class="row" id="trb-grid">
+      <!--
+        TRB Cards go here - stored in operator-trb-card.html
+      -->
+
+       <!-- Incoming phonecall card -->
+      <div class="col-6">
+        <div class="card rounded border border-secondary" style="border: 1px solid;">
+          <div class="card-body" style="text-align: center;">
+            <h5 class="card-title">Create New Tow</h5>
+            <p class="card-text" >Click the + sign to start helping a new distressed boater</p>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newDistressedBoaterModal">
+              +
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Incoming phonecall modal -->
+    <div class="modal fade" id="newDistressedBoaterModal" tabindex="-1" role="dialog" aria-labelledby="newDistressedBoaterModalTitle" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="newDistressedBoaterModalTitle">New Distressed Boater</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Instruction: Enter the caller's phone number in the form below.  After entering the phone number, read the number back to the caller to verify. Read scripting in box below to caller. Click "Start Tow Request".</p>
+            <div class="card">
+              <div class="card-header">
+                Script
+              </div>        
+              <div class="card-body">     
+                <p class="card-text">
+                  I am going to send you a text message which will include a form you can complete to pass your information on to our Coast Guard licensed captains.
+                  Please let me know once you get the text. I will then place you on hold while I attempt to contact a nearby captain to assist you. We appreciate your patience while we attempt to get you assistance.
+                </p> 
+              </div>
+            </div>
+            <div class="input-group mb-3" style="margin-top:10px">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-default">Phone Number:</span>
+              </div>
+              <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="phone-input">
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary" id="start-btn">Start Tow Request</button>
+          </div>
+        </div>
+      </div>
+    </div>
+<script type="text/javascript">
+"use strict";
+
+var timeHeader;
+
+$(document).ready(function() {
+  // Set the time to update every 1m
+  timeHeader = $("#time");
+  updateTimeHeader();
+  setInterval(updateTimeHeader, 60000);
+  fillOperatorPanel();
+  setInterval(fillOperatorPanel, 30000);
+  $("#start-btn").click(sendText);
+})
+
+function updateTimeHeader(){
+  var d = Date();
+  var upToSecond = d.toLocaleString().split(' ').slice(0,5).join(' ');
+  var upToMinute = upToSecond.split(':').slice(0,2).join(":");
+  timeHeader.text(upToMinute);
+};
+
+
+function fillOperatorPanel(){
+  var panelGetRequest;
+  function handlePanelGetResponse () {
+    if (panelGetRequest.status !== 200) {
+      alert('Error getting panel response: ' + panelGetRequest.responseText);
+      return
+    }
+    // Response is array of trb ids
+    var response = JSON.parse(panelGetRequest.responseText);
+    console.log("Found " + response.length + " tow request batches");
+
+    // For each trb_id, 
+    $('.operator-trb-card').each(function(){this.remove()})
+    for (var i in response) {
+      var trb_id = response[i];
+      var thisCardRequest =  new XMLHttpRequest();
+      console.log("GET: " +  "/operator_panel/render_trb_card/" + trb_id);
+      thisCardRequest.open("GET", "/operator_panel/render_trb_card/" + trb_id);
+      thisCardRequest.addEventListener("load", function(){
+        $("#trb-grid").prepend(thisCardRequest.responseText);
+      })
+      thisCardRequest.send();
+    }
+  }
+  panelGetRequest = new XMLHttpRequest();
+  panelGetRequest.addEventListener("load", handlePanelGetResponse);
+  panelGetRequest.open("GET", "/operator_panel_json");
+  console.log("Sending GET to fill panel")
+  panelGetRequest.send();
+}
+
+
+
+function makeNewCard(trb) {
+  console.log("Making new card");
+  var getCardHTMLReq = new XMLHttpRequest();
+  panelGetRequest.addEventListener("load", handlePanelGetResponse);
+  $("#trb-grid").prepend( "<p>" + trb["id"] + "</p>")
+}
+
+function sendText() {
+  console.log("send text");
+  var phoneNumber = $("#phone-input").val();
+  var postData = {'phone': phoneNumber};
+  console.log(postData);
+  var xhrSendPhone = new XMLHttpRequest();
+  xhrSendPhone.open('POST', '/operator_panel_send_text');
+  xhrSendPhone.setRequestHeader('Content-Type', 'application/json');
+  xhrSendPhone.onload = function() {
+    console.log(xhrSendPhone.status);
+    if (xhrSendPhone.status === 200) {
+        $('#newDistressedBoaterModal').modal('hide');
+        var response = JSON.parse(xhrSendPhone.responseText);
+        if (response['status'] === 'no_captains_in_area') {
+          // showNoCaptainsModal();
+        } else {
+          // showDriftRequestedModal();
+        }
+    } else {
+      alert('Error - text was not sent.');
+      $('#newDistressedBoaterModal').modal('hide');
+    }
+  };
+  xhrSendPhone.send(JSON.stringify(postData));
+}
+
+</script>
+  </body>
+  </html>
+

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Drift Admin Panel</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% include "js_css_imports.html" %}
+</head>
+<body>
+{% include "site-header.html" %}
+
+
+
+<div class="container">
+  <h2>User: {{user.id}}</h2>
+
+  <table class="table table-striped">
+    <tbody>
+      <tr><td>id</td><td>{{ user.id }}</td></tr>
+      <tr><td>is_android</td><td>{{ user.is_android }}</td></tr>
+      <tr><td>role_string</td><td>{{ user.role_string }}</td></tr>
+      <tr><td>location</td><td><a href="{{user.google_maps_string}}">{{user.readable_location}}</a></td></tr>
+      <tr><td>first_name</td><td>{{ user.first_name }}</td></tr>
+      <tr><td>last_name</td><td>{{ user.last_name }}</td></tr>
+      <tr><td>active</td><td>{{ user.active }}</td></tr>
+      <tr><td>time_created</td><td>{{ user.time_created }}</td></tr>
+      <tr><td>phone</td><td>{{ user.phone }}</td></tr>
+      <tr><td>email</td><td>{{ user.email }}</td></tr>
+      <tr><td>last_geo_point_seen</td><td>{{ user.last_geo_point_seen }}</td></tr>
+      <tr><td>last_time_seen</td><td>{{ user.last_time_seen }}</td></tr>
+      <tr><td>over_water</td><td>{{ user.over_water }}</td></tr>
+      <tr><td>requestee_tow_request_id</td><td>{{ user.requestee_tow_request_id }}</td></tr>
+      <tr><td>active_tow_event_serving_id</td><td>{{ user.active_tow_event_serving_id }}</td></tr>
+      <tr><td>active_tow_event_receiving_id</td><td>{{ user.active_tow_event_receiving_id }}</td></tr>
+      <tr><td>active_tow_request_batch_id</td><td>{{ user.active_tow_request_batch_id }}</td></tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>

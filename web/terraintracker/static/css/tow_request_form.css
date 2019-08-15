@@ -1,0 +1,206 @@
+.header-row{
+  padding-top: 19px;
+  padding-bottom: 16px;
+  background-color: #283267b8;
+  margin-bottom: 25px;
+  border-radius: 0px 0px 3px 3px;
+}
+.white-alpha-background{
+  background-color: #ffffffe6;
+  border-radius: 0px 0px 5px 5px;
+  margin-top: 0px;
+  padding-bottom: 15px;
+  margin-bottom: 50px;
+}
+#terms-and-conditions{
+  color: #3f51b5;
+  font-weight: 500;
+  text-decoration: underline;
+}
+#drift-d{
+  width:100%;
+  padding-top: 4px;
+}
+#spr-img{
+  width:100%
+}
+#help-img{
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 20px;
+  height: 20px;
+}
+
+div.top-row{
+  margin: inherit;
+  margin-bottom: 0px;
+  margin-top: 7px;
+  border-radius: 10px 10px 0px 0px;
+  background-color: #cc4750;
+  color: white;
+  background-image: linear-gradient( to top, #cc4750, #bf3732e0 4% );
+  padding-top: 2px;
+  padding-bottom: 5px;
+}
+
+p{
+  color:#333;
+}
+
+p.form-title{
+  margin: 8px 0px 4px 0px;
+  font-size: 27px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  color: white;
+  text-align: center;
+  /*border-bottom: 1px solid #004b5d3b;*/
+}
+
+p.instructions-blurb{
+  margin: 8px 0px 4px 0px;
+  font-size: 27px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  color: white;
+  text-align: center;
+}
+
+h5.form-legend{
+  margin-top: 10px;
+  margin-bottom: 0px;
+  margin-left: -5px;
+}
+
+h5.service-required-legend{
+  text-align: center;
+  font-size: 25px;
+  margin-bottom: 5px !important;
+}
+
+h5.location-info-legend{
+  margin-top: 15px !important;  
+}
+
+h5.boat-info-legend{
+  margin-top: 5px !important;
+}
+
+h5.drift-title{
+  margin-bottom: 4px;
+  font-size: 26px;
+  text-align: center;
+}
+
+h5.simple-prompt-reliable{
+  color: white;
+  margin: 6px 10px 10px 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid;
+  border-bottom-color: #3f52b5;
+  text-align: center;
+}
+.last-row{
+  text-align: center;
+}
+.service-required-wrapper{
+  /*background-color: #73725936;*/
+  /*background-color: #004b5d3b;*/
+  /* margin-bottom: 5px; */
+  /* border-bottom: 2px solid; */
+  /*border-bottom-color: #004B5D;*/
+  padding-top: 10px;
+}
+div.service-select-textfield{
+  padding-top: 10px;
+}
+body, html{
+  height: 100%;
+}
+body, html{
+  /* The image used */
+  background-image: url("/static/images/ocean6.jpg");
+
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: top left;
+  background-repeat: no-repeat;
+  background-size: stretch;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+}
+
+.no-gutters {
+  margin-right: 0;
+  margin-left: 0;
+  padding-right: 0;
+  padding-left: 0;
+}
+
+#fa-icon-question{
+  font-size: 32px;
+}
+
+/* must custom phone textfield use our color*/
+.mdl-phone-textfield--floating-label.is-focused .mdl-phone-textfield__label, .mdl-phone-textfield--floating-label.is-dirty .mdl-phone-textfield__label, .mdl-phone-textfield--floating-label.has-placeholder .mdl-phone-textfield__label{
+  color: #3f51b5 ;  
+}
+
+dialog{
+    padding: 0px;
+    /* background-color: orange; */
+    border-radius: 15px;
+    border: 2px;
+  }
+
+.mdl-dialog__content{
+  padding-bottom: 0px;
+}
+
+#dialog-box-content{
+  margin-bottom: 0px;
+  padding: 0px 15px 0px 15px
+}
+#dialog-content-container{
+  padding: 0px 0px 0px 0px;
+}
+#dialog-title{
+    margin: 0px 0px 5px 0px;
+    text-align: center;
+    background-color: #a54145bd;
+    padding: 15px 15px 15px 0px;
+    border-radius: 10px 10px 0px 0px;
+    color: white;
+}
+
+/*.mdl-textfield__label{ font-size: 24px; top: 20px; color: @color500;}*/
+
+/*  Old MDL textfield customization
+.mdl-textfield__input{
+    border-bottom: 1px solid #FFFFFF !important;
+    color: #FFFFFF !important;
+}
+
+.mdl-textfield__label{
+    color: #00000042 !important;
+    color: #FBFAC2 !important;
+
+}
+.is-focused{
+    color: #FBFAC2 !important;
+}
+.mdl-textfield--floating-label.is-focused{
+    color: #FBFAC2 !important;
+}
+.mdl-textfield{padding-bottom: 27px; width:100%;}
+
+.mdl-textfield .mdl-textfield__label:after{
+background-color: white;
+}
+
+.getmdl-select{
+  /*padding-bottom: 27px; width:100%;
+}
+*/

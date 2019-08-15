@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Drift Admin Panel</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% include "js_css_imports.html" %}
+</head>
+<body>
+{% include "site-header.html" %}
+<div class="container">
+{% for tower in towers %}
+<div class="row">
+    <form class="user-form" id="{{tower.id}}">
+      <div class="form-row">
+        <div class="form-group hidden"><input type="text" class="form-control" name="id" value="{{ tower.id }}"></div>
+        <div class="form-group col-sm-2 col-lg-2">
+            <label for="name">Name</label> <input type="text" class="form-control" name="name" value="{{ tower.name }}">
+        </div>
+        <div class="form-group col-sm-2 col-lg-2">
+            <label for="phone">Phone</label> <input type="text" class="form-control" name="phone" value="{{ tower.phone }}">
+        </div>
+        <div class="form-group col-sm-3 col-lg-3">
+            <label for="lat">Ramp Lat</label> <input type="text" class="form-control" name="lat" value="{{ tower.last_lat_seen }}">
+        </div>
+        <div class="form-group col-sm-3 col-lg-3">
+            <label for="lon">Ramp Lon</label> <input type="text" class="form-control" name="lon" value="{{ tower.last_long_seen }}">
+        </div>
+        <div class="form-group col-sm-2 col-lg-2">
+            <button class="btn btn-primary save-user" style="margin-top:20px">Save This Row</button>
+        </div>
+      </div>
+    </form>
+    <hr>
+</div>
+{% endfor %}
+<div class="row hidden" id="new-user-form-div">
+    <form class="new-user-form" id="new-user-form">
+      <div class="form-row">
+        <div class="form-group hidden"><input type="text" class="form-control" name="id" value="" id="new-user-id"></div>
+        <div class="form-group col-sm-2 col-lg-2">
+            <label for="name">Name</label> <input type="text" class="form-control" name="name" value="">
+        </div>
+        <div class="form-group col-sm-2 col-lg-2">
+            <label for="phone">Phone</label> <input type="text" class="form-control" name="phone" value="">
+        </div>
+        <div class="form-group col-sm-3 col-lg-3">
+            <label for="lat">Ramp Lat</label> <input type="text" class="form-control" name="lat" value="">
+        </div>
+        <div class="form-group col-sm-3 col-lg-3">
+            <label for="lon">Ramp Lon</label> <input type="text" class="form-control" name="lon" value="">
+        </div>
+        <div class="form-group col-sm-2 col-lg-2">
+            <button class="btn btn-primary save-user" style="margin-top:20px">Save This Row</button>
+        </div>
+      </div>
+    </form>
+    <hr>
+</div>
+
+<button class="btn btn-success" style="margin-top:20px" id="new-user">+</button>
+</div>
+<script>
+  $(".user-form").submit(function(e){
+    e.preventDefault();
+
+    var values = {};
+    $.each($(this).serializeArray(), function(i, field) {
+        console.log(field);
+        values[field.name] = field.value;
+    });
+    $.ajax({
+      type: "PUT",
+      url: "/users",
+      data: JSON.stringify(values),
+      success: function(v){console.log(v);location.reload();},
+      failure: function(v){console.log(v);location.reload();},
+      dataType: "json",
+      contentType : "application/json"
+    });    
+    return false;
+    location.reload();
+
+  })
+
+  $("#new-user").click(function(){
+    console.log("AH")
+    $("#new-user-form-div").removeClass('hidden');
+  })
+
+    $(".new-user-form").submit(function(e){
+    e.preventDefault();
+
+    var values = {};
+    $.each($(this).serializeArray(), function(i, field) {
+        console.log(field);
+        values[field.name] = field.value;
+    });
+    $.ajax({
+      type: "POST",
+      url: "/users",
+      data: JSON.stringify(values),
+      success: function(v){console.log(v);location.reload();},
+      failure: function(v){console.log(v);location.reload();},
+      dataType: "json",
+      contentType : "application/json"
+    });    
+    return false;
+    
+  })
+
+</script>
+<script>
+
+</script>
+</body>
+</html>

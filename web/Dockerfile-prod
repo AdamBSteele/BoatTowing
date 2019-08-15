@@ -1,0 +1,4 @@
+FROM python:3.5-onbuild
+RUN cd /usr/src/app && python setup.py install
+
+CMD gunicorn -w 2 -b :8000 gunicorn_entry:app

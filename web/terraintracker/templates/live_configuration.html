@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Drift Admin Panel</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% include "js_css_imports.html" %}
+</head>
+<body>
+{% include "site-header.html" %}
+
+<div class="container">
+  <h2>Live Configuration Values</h2>
+  <span> {{live_config}}</span>
+  
+
+  <form id="configForm" action="/live_configuration">
+  {% for k in live_config_dict %}
+    <input type="text" name="s" value="{{ live_config_dict[k] }}">
+  {% endfor %}
+  <input type="submit" value="Submit"></
+  </form>
+</div>
+
+<script type="text/javascript">
+
+
+  $("#configForm").submit(function ( event ) {
+    event.preventDefault()
+    console.log("submitting")
+
+    var $form = $( this ),
+    term = $form.find("input[name='s']").val()
+    url = $form.attr("action")
+    data = {s: term}
+    console.log(data)
+    
+    var posting = $.post(url, data, "json")
+    posting.done(function(data) {
+      console.log("DONE")
+    })
+
+    // $.post("/live_configuration", {'a', 'b'}, function(data){console.log('data');}, "json")
+    }) 
+  
+
+</script>
+</body>
+</html>

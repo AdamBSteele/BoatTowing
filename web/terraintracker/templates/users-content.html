@@ -1,0 +1,35 @@
+<div class="container">
+  <h2>Users</h2>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Location</th>
+        <th>Role</th>
+        <th>ID</th>
+        <th>OneSignal ID</th>
+        <th>Active Tow Event</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for user in users %}
+      <tr>
+        <td><a href="/admin_panel/user_detail/{{user.id}}">{{user.name}}</a></td>
+        <td><a href="{{user.google_maps_string}}">{{user.readable_location}}</a></td>
+        <td>{{user.role_string}}</td>
+        <td>{{user.id}}</td>
+        <td>{{user.one_signal_player_id}}</td>
+        <td>
+          {% if user.active_tow_event_receiving is defined %}
+            {{user.active_tow_event_receiving.id}}
+          {% elif user.active_tow_event_serving is defined %}
+            {{user.active_tow_event_serving.id}}
+          {% else %}
+            None
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,39 @@
+#!/usr/local/bin/python
+import time
+
+from apns3 import APNs, Frame, Payload, PayloadAlert
+
+print("getting apns")
+apns = APNs(use_sandbox=True, cert_file='myapnsappcert.pem', key_file='myapnsappprivatekey2.pem')
+print("got apns")
+
+# Send a notification
+# token_hex = '28bc9df3164ca01af6d226370ebcd0071c20bcf1135b5342b2dcf227d62daa4d'
+# payload = Payload(alert="Hello World!", sound="default", badge=1)
+# apns.gateway_server.send_notification(token_hex, payload)
+
+# Send an iOS 10 compatible notification
+print("sendin")
+my_alert = {
+    'title': 'tow request!',
+    'body': 'Someone needs a tow right now!',
+    'launch-image': 'icon.png',
+    'message-type': 'tow-request'
+}
+adam_token = '28bc9df3164ca01af6d226370ebcd0071c20bcf1135b5342b2dcf227d62daa4d'
+mark_token = 'ebc54afa581eb0098c05cbffe5ed6b01c861ef47b27a266cb6acc649f3e27a11'
+# payload = Payload(alert="Hello World!", sound="default", badge=1)
+
+# my_alert = PayloadAlert("Tow Request", action_loc_key="Click me")
+payload = Payload(alert=my_alert, sound="default", badge=1)
+apns.gateway_server.send_notification(adam_token, payload)
+print("sent")
+
+# Send multiple notifications in a single transmission
+# frame = Frame()
+# identifier = 1
+# expiry = time.time()+3600
+# priority = 10
+# frame.add_item('b5bb9d8014a0f9b1d61e21e796d78dccdf1352f23cd32812f4850b87', payload, identifier, expiry, priority)
+# apns.gateway_server.send_notification_multiple(frame)
+

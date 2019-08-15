@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Drift Tow Request Form</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% include "js_css_imports.html" %}
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://code.getmdl.io/1.1.1/material.indigo-pink.min.css">
+<script defer src="https://code.getmdl.io/1.1.1/material.min.js"></script>
+  <style>
+  body, html {
+    height: 100%;
+  }
+  body {
+    /* The image used */
+    background-image: url("/static/ocean4.png");
+
+    /* Full height */
+    height: 100%;
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: stretch;
+    
+  }
+.mdl-textfield__input{
+    border-bottom: 1px solid #fff;
+}
+
+.mdl-textfield__label{
+    color: #fff;
+}
+
+</style> 
+</head>
+
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin-bottom: 10px;">
+    <a class="navbar-brand" href="#">Drift - New Tow Request</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </nav>
+  <div class="container">
+    <div class="row" style="margin-bottom: 10px;">
+      <div class="col">
+
+
+        <form class="form-horizontal" >
+          <div class="form-group col-auto">
+            <label for="inputName4">Name</label>
+            <input type="email" class="form-control" id="inputName4" placeholder="Name">
+          </div>
+          <div class="form-group col-auto">
+            <label for="inputPhoned4">Phone</label>
+            <input type="text" class="form-control" id="inputPhoned4" placeholder="Phone">
+          </div>
+          <div class="form-group col-auto">
+            <label for="inputServiceNeeded">Service Required</label>
+            <select class="form-control" id="inputServiceNeeded">
+              <option>Tow (ungrounded)</option>
+              <option>Tow (grounded)</option>
+              <option>Fuel Refill</option>
+              <option>Battery Jump</option>
+              <option>Entanglement</option>
+            </select>
+          </div>
+          <legend class="col-form-label col-md-6 pt-0">Boat Information</legend>
+          <div class="form-group col-auto">
+            <label for="inputBoatMaked4">Make</label>
+            <input type="text" class="form-control" id="inputBoatMaked4" placeholder="Boat Make">
+          </div>
+          <div class="form-group col-auto">
+            <label for="inputBoatColord4">Color</label>
+            <input type="text" class="form-control" id="inputBoatColord4" placeholder="Boat Color">
+          </div>
+          <div class="form-group col-auto">
+            <label for="inputBoatLengthd4">Length</label>
+            <input type="text" class="form-control" id="inputBoatLengthd4" placeholder="Boat Length">
+          </div>
+          <div class="form-group col-auto">
+            <label for="inputLatitude4">Latitude</label>
+            <input type="text" class="form-control" id="inputLatitude4" placeholder="Latitude">
+          </div>
+          <div class="form-group col-auto">
+            <label for="inputLongituded4">Longitude</label>
+            <input type="text" class="form-control" id="inputLongituded4" placeholder="Longitude">
+          </div>
+          <div class="col-auto" style="background-color: rgba(245, 245, 245, 0.6);">
+            <div class="form-check mb-2">
+              <input class="form-check-input" type="checkbox" id="autoSizingCheck">
+              <label class="form-check-label" for="autoSizingCheck">
+                I accept the <a href="https://www.driftboat.io/terms-and-conditions" target="_blank">Drift Terms & Conditions</a>
+              </label>
+            </div>
+          </div>
+          <div class="row" style="text-align: center;"><div class="col"><button type="submit" class="btn btn-primary">Request Tow</button></div></div>
+          
+        </form>
+      </div>
+    </div>
+  </div>  
+
+  <script>
+    var latInput = document.getElementById("inputLatitude4");
+    var lonInput = document.getElementById("inputLongituded4");
+
+    function getLocation() {
+      console.log("getLocation")
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition, showError);
+      } else { 
+        x.value = "Geolocation is not supported by this browser.";
+      }
+    }
+
+    function showPosition(position) {
+      console.log("showPosition")
+      latInput.value = position.coords.latitude;
+      lonInput.value =  position.coords.longitude;
+    }
+
+    function showError(error) {
+      console.log("showError")
+      switch(error.code) {
+        case error.PERMISSION_DENIED:
+        x.value = "User denied the request for Geolocation."
+        break;
+        case error.POSITION_UNAVAILABLE:
+        x.value = "Location information is unavailable."
+        break;
+        case error.TIMEOUT:
+        x.value = "The request to get user location timed out."
+        break;
+        case error.UNKNOWN_ERROR:
+        x.value = "An unknown error occurred."
+        break;
+      }
+    }
+
+    getLocation();
+  </script>
+
+</body>

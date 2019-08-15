@@ -1,0 +1,15 @@
+      <tr>
+        <td>
+          <a href="/admin_panel/user_detail/{{trb.requestor_id}}">
+          {% if trb.requestor_name is not none %}
+            {{trb.requestor_name}}
+          {% else %}
+            {{trb.requestor_id}}
+          {% endif %}
+         </a>
+        </td>
+        <td>{{trb.time_sent}}</td>
+        <td>{{trb.status_string}}</td>
+        <td>{{trb.num_requests}}</td>
+        <td><a href="/admin_panel/trb_detail/{{trb.id}}">{{trb.id}}</a></td>
+      </tr>
