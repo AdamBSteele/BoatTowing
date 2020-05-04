@@ -16,7 +16,7 @@ coverage==4.5.2
 cryptography==2.4.1
 decorator==4.3.0
 docutils==0.14
-ecdsa==0.13
+ecdsa==0.13.3
 fabric==2.4.0
 flake8==2.5.1
 Flask==1.0.2
