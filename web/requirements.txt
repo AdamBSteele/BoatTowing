@@ -21,7 +21,7 @@ fabric==2.4.0
 flake8==2.5.1
 Flask==1.0.2
 Flask-Auth==0.85
-Flask-Cors==3.0.7
+Flask-Cors==3.0.9
 Flask-HTTPAuth==3.2.4
 Flask-Mail==0.9.1
 Flask-Migrate==2.3.0
