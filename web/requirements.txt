@@ -5,7 +5,7 @@ apns3==1.0.0
 asn1crypto==0.24.0
 astroid==1.4.9
 attrs==18.2.0
-Babel==2.6.0
+Babel==2.9.1
 bcrypt==3.1.4
 blinker==1.4
 certifi==2018.10.15
