@@ -4,7 +4,7 @@ Flask-Testing==0.4.2
 pytest==3.4.0
 flake8==2.5.1
 lint==1.2.1
-setuptools==38.5.0
+setuptools==65.5.1
 setuptools-lint==0.5.2
 pylint==1.6.1
 virtualenv==15.0.2
